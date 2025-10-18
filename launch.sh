@@ -4,7 +4,8 @@
 # Because clicking buttons is for mortals
 
 echo "========================================="
-echo "    LooseCannon v0.3.0 Launch Sequence"
+echo "    LooseCannon v0.3.1 Launch Sequence"
+echo "    (Now with 100% less npm warnings)"
 echo "========================================="
 echo ""
 
@@ -65,9 +66,15 @@ fi
 
 # Launch Firefox with extension
 if [ $FIREFOX_OK -eq 0 ]; then
-    echo "Launching Firefox with LooseCannon extension..."
-    npm run dev:extension &
-    FIREFOX_PID=$!
+    if command -v web-ext &> /dev/null; then
+        echo "Launching Firefox with LooseCannon extension..."
+        web-ext run --source-dir ./extension &
+        FIREFOX_PID=$!
+    else
+        echo "ℹ️  web-ext not found - load extension manually in Firefox"
+        echo "  Install globally: npm i -g web-ext"
+        echo "  Or use: about:debugging > Load Temporary Add-on"
+    fi
 else
     echo "⚠️  Firefox not found - manually load extension"
 fi
