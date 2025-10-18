@@ -1,37 +1,41 @@
 {
   "name": "loosecannon",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Automated scambaiting assistant for messaging platforms",
-  "main": "server/src/index-enhanced.js",
+  "main": "server/src/index-enhanced.mjs",
+  "type": "module",
   "scripts": {
-    "start": "node server/src/index-enhanced.js",
+    "start": "node server/src/index-enhanced.mjs",
     "start:basic": "node server/src/index.js",
-    "dev": "npm run dev:server & npm run dev:extension",
-    "dev:server": "nodemon server/src/index-enhanced.js",
-    "dev:extension": "web-ext run --source-dir ./extension --firefox-profile=loosecannon",
-    "dev:chrome": "echo 'Load extension-chrome/ as unpacked extension in Chrome'",
-    "dashboard": "open dashboard/index.html",
-    "build": "web-ext build --source-dir ./extension",
+    "dev": "npm run dev:server",
+    "dev:server": "node server/src/index-enhanced.mjs",
+    "dev:extension:firefox": "echo 'Install web-ext globally: npm i -g web-ext' && echo 'Then run: web-ext run --source-dir ./extension'",
+    "dev:extension:chrome": "echo 'Load extension-chrome/ as unpacked extension in Chrome'",
+    "dashboard": "open dashboard/index.html || xdg-open dashboard/index.html || start dashboard/index.html",
+    "build:firefox": "echo 'Run: web-ext build --source-dir ./extension'",
     "build:chrome": "cd extension-chrome && zip -r ../loosecannon-chrome.zip *",
-    "lint": "web-ext lint --source-dir ./extension"
+    "clean": "rm -rf node_modules package-lock.json && npm install"
   },
   "keywords": [
     "scambaiting",
     "browser-extension",
     "firefox",
+    "chrome",
     "whatsapp",
-    "llm"
+    "telegram",
+    "messenger",
+    "llm",
+    "ollama"
   ],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "nodemon": "^3.0.1",
-    "web-ext": "^7.8.0"
+  "engines": {
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "express": "^4.18.2",
+    "express": "^4.19.2",
     "cors": "^2.8.5",
-    "axios": "^1.6.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.4.5",
+    "ws": "^8.17.0"
   }
 }
