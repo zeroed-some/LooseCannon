@@ -1,0 +1,26 @@
+/* Custom styles for LooseCannon WhatsApp integration */
+
+/* Ensure our controls stay visible */
+.loosecannon-toggle,
+.loosecannon-indicator {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+/* Highlight active conversations when LooseCannon is active */
+body[data-loosecannon-active="true"] [data-testid="conversation-panel-wrapper"] {
+  border-left: 3px solid #44ff44;
+}
+
+/* Visual feedback for automated messages */
+.loosecannon-automated-message {
+  position: relative;
+}
+
+.loosecannon-automated-message::after {
+  content: "🤖";
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 12px;
+  opacity: 0.5;
+}

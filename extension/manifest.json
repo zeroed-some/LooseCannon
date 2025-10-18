@@ -1,0 +1,42 @@
+{
+  "manifest_version": 2,
+  "name": "LooseCannon",
+  "version": "0.1.0",
+  "description": "Automated scambaiting assistant for WhatsApp Web",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "nativeMessaging",
+    "<all_urls>"
+  ],
+
+  "background": {
+    "scripts": ["background/background.js"],
+    "persistent": false
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://web.whatsapp.com/*"],
+      "js": ["content-scripts/whatsapp.js"],
+      "css": ["content-scripts/whatsapp.css"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

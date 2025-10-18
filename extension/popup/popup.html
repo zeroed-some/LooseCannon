@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      width: 350px;
+      padding: 15px;
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .status {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .status-indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .status-indicator.connected {
+      background: #10b981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+    }
+
+    .status-indicator.disconnected {
+      background: #ef4444;
+      box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+    }
+
+    .control-group {
+      margin-bottom: 20px;
+    }
+
+    .control-label {
+      font-weight: 600;
+      color: #666;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 14px;
+      background: white;
+      cursor: pointer;
+      transition: border-color 0.2s;
+    }
+
+    select:hover {
+      border-color: #667eea;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      background: white;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .toggle-switch:hover {
+      border-color: #667eea;
+    }
+
+    .toggle-switch.active {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-color: transparent;
+      color: white;
+    }
+
+    .toggle-label {
+      font-weight: 600;
+    }
+
+    .toggle-status {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .stat-card {
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #999;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+
+    .footer {
+      margin-top: 20px;
+      padding-top: 15px;
+      border-top: 1px solid #f0f0f0;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: #999;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: #667eea;
+    }
+
+    .emergency-stop {
+      width: 100%;
+      padding: 12px;
+      background: #ef4444;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.2s;
+    }
+
+    .emergency-stop:hover {
+      background: #dc2626;
+    }
+
+    .warning {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .warning strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">LC</div>
+    <h1>LooseCannon</h1>
+  </div>
+
+  <div class="warning">
+    <strong>⚠️ Warning:</strong>
+    Use responsibly. May violate platform ToS. Your account could be banned.
+  </div>
+
+  <div class="status">
+    <div class="status-indicator disconnected" id="serverStatus"></div>
+    <div>
+      <div>Server Status: <span id="serverStatusText">Disconnected</span></div>
+      <div style="font-size: 11px; opacity: 0.7;">localhost:8765</div>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <label class="control-label">Personality Mode</label>
+    <select id="personalitySelect">
+      <option value="default">Default - Confused Elder</option>
+      <option value="technical">Technical Support Nightmare</option>
+      <option value="conspiracy">Conspiracy Theorist</option>
+      <option value="verbose">Extremely Verbose</option>
+      <option value="questions">Only Questions</option>
+    </select>
+  </div>
+
+  <div class="toggle-switch" id="mainToggle">
+    <div>
+      <div class="toggle-label">Auto-Response</div>
+      <div class="toggle-status" id="toggleStatus">Currently Inactive</div>
+    </div>
+    <div style="font-size: 24px;">⚡</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-value" id="messageCount">0</div>
+      <div class="stat-label">Messages Handled</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" id="sessionTime">0m</div>
+      <div class="stat-label">Session Time</div>
+    </div>
+  </div>
+
+  <button class="emergency-stop" id="emergencyStop">EMERGENCY STOP ALL</button>
+
+  <div class="footer">
+    <div class="footer-links">
+      <a href="#" id="settingsLink">Settings</a>
+      <a href="#" id="logsLink">View Logs</a>
+      <a href="#" id="helpLink">Help</a>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
