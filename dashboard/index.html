@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LooseCannon Analytics Dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="dashboard">
+    <!-- Header -->
+    <header class="dashboard-header">
+      <div class="header-content">
+        <h1>LooseCannon Command Center</h1>
+        <div class="server-status">
+          <span class="status-indicator" id="serverStatus"></span>
+          <span>Server: <span id="serverUrl">localhost:8765</span></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="dashboard-main">
+      <!-- Stats Cards -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="totalMessages">0</div>
+          <div class="stat-label">Messages Processed</div>
+          <div class="stat-trend" id="messageTrend">+0%</div>
+        </div>
+
+        <div class="stat-card danger">
+          <div class="stat-value" id="scammersDetected">0</div>
+          <div class="stat-label">Scammers Detected</div>
+          <div class="stat-trend" id="scammerTrend">+0%</div>
+        </div>
+
+        <div class="stat-card success">
+          <div class="stat-value" id="activeSessions">0</div>
+          <div class="stat-label">Active Sessions</div>
+          <div class="stat-indicator">
+            <span class="pulse"></span>
+            Live
+          </div>
+        </div>
+
+        <div class="stat-card info">
+          <div class="stat-value" id="responseTime">0ms</div>
+          <div class="stat-label">Avg Response Time</div>
+          <div class="stat-trend" id="responseTrend">↓ 0%</div>
+        </div>
+      </section>
+
+      <!-- Real-time Activity Feed -->
+      <section class="activity-section">
+        <h2>Live Activity</h2>
+        <div class="activity-feed" id="activityFeed">
+          <div class="activity-item">
+            <span class="activity-time">Waiting for activity...</span>
+            <span class="activity-message">System ready</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts Section -->
+      <section class="charts-section">
+        <div class="chart-container">
+          <h3>Message Volume (24h)</h3>
+          <canvas id="volumeChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <h3>Scammer Detection Rate</h3>
+          <canvas id="detectionChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <h3>Platform Distribution</h3>
+          <canvas id="platformChart"></canvas>
+        </div>
+
+        <div class="chart-container">
+          <h3>Response Times</h3>
+          <canvas id="responseChart"></canvas>
+        </div>
+      </section>
+
+      <!-- Active Conversations -->
+      <section class="conversations-section">
+        <h2>Active Conversations</h2>
+        <div class="conversations-grid" id="conversationsGrid">
+          <div class="conversation-card">
+            <div class="conversation-header">
+              <span class="platform-badge whatsapp">WhatsApp</span>
+              <span class="conversation-id">No active conversations</span>
+            </div>
+            <div class="conversation-stats">
+              <span>Messages: 0</span>
+              <span>Score: 0.0</span>
+              <span>Duration: 0m</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Screenshot Evidence -->
+      <section class="evidence-section">
+        <h2>Recent Evidence</h2>
+        <div class="evidence-grid" id="evidenceGrid">
+          <div class="evidence-placeholder">
+            No screenshots captured yet
+          </div>
+        </div>
+      </section>
+
+      <!-- Pattern Learning -->
+      <section class="patterns-section">
+        <h2>Learned Patterns</h2>
+        <div class="patterns-container">
+          <div class="pattern-stats">
+            <div class="pattern-stat">
+              <span class="pattern-value" id="totalPatterns">0</span>
+              <span class="pattern-label">Patterns Identified</span>
+            </div>
+            <div class="pattern-stat">
+              <span class="pattern-value" id="patternAccuracy">0%</span>
+              <span class="pattern-label">Detection Accuracy</span>
+            </div>
+          </div>
+          <div class="patterns-list" id="patternsList">
+            <div class="pattern-item">
+              <span class="pattern-type">No patterns learned yet</span>
+              <span class="pattern-count">0 occurrences</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Controls -->
+      <section class="controls-section">
+        <h2>System Controls</h2>
+        <div class="controls-grid">
+          <button class="control-btn primary" id="exportBtn">
+            Export Data
+          </button>
+          <button class="control-btn danger" id="emergencyStop">
+            Emergency Stop All
+          </button>
+          <button class="control-btn" id="clearDataBtn">
+            Clear Old Data
+          </button>
+          <button class="control-btn" id="syncBtn">
+            Sync Patterns
+          </button>
+          <button class="control-btn success" id="personalityBtn">
+            Personality Builder
+          </button>
+          <button class="control-btn info" id="replayBtn">
+            Conversation Replay
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="dashboard-footer">
+      <div class="footer-content">
+        <span>LooseCannon v0.3.0</span>
+        <span>Uptime: <span id="uptime">0h 0m</span></span>
+        <span>Last Updated: <span id="lastUpdated">Never</span></span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Personality Builder Modal -->
+  <div class="modal" id="personalityModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Personality Builder</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="personalityForm">
+          <div class="form-group">
+            <label>Personality Name</label>
+            <input type="text" id="personalityName" placeholder="e.g., Overly Helpful">
+          </div>
+          <div class="form-group">
+            <label>System Prompt</label>
+            <textarea id="systemPrompt" rows="6" placeholder="Describe the personality traits and behavior..."></textarea>
+          </div>
+          <div class="form-group">
+            <label>Temperature (0.1 - 1.0)</label>
+            <input type="range" id="temperature" min="0.1" max="1" step="0.1" value="0.8">
+            <span id="tempValue">0.8</span>
+          </div>
+          <div class="form-group">
+            <label>Example Responses</label>
+            <textarea id="examples" rows="4" placeholder="One example per line..."></textarea>
+          </div>
+          <div class="form-buttons">
+            <button type="button" class="btn secondary" id="testPersonality">Test</button>
+            <button type="submit" class="btn primary">Save Personality</button>
+          </div>
+        </form>
+        <div class="test-output" id="testOutput"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Conversation Replay Modal -->
+  <div class="modal" id="replayModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Conversation Replay</h2>
+        <button class="modal-close" id="replayClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <select id="conversationSelect">
+          <option>Select a conversation...</option>
+        </select>
+        <div class="replay-container" id="replayContainer">
+          <div class="replay-controls">
+            <button id="playBtn">▶ Play</button>
+            <button id="pauseBtn">⏸ Pause</button>
+            <button id="speedBtn">Speed: 1x</button>
+            <input type="range" id="replayProgress" min="0" max="100" value="0">
+          </div>
+          <div class="replay-messages" id="replayMessages"></div>
+          <div class="replay-stats" id="replayStats">
+            <span>Messages: 0</span>
+            <span>Duration: 0m</span>
+            <span>Scammer Score: 0.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="dashboard.js" type="module"></script>
+</body>
+</html>

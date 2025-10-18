@@ -1,0 +1,80 @@
+{
+  "manifest_version": 3,
+  "name": "LooseCannon",
+  "version": "0.3.0",
+  "description": "Automated scambaiting assistant - Now with Chrome support",
+
+  "permissions": [
+    "storage",
+    "tabs",
+    "scripting",
+    "webRequest",
+    "declarativeNetRequest"
+  ],
+
+  "host_permissions": [
+    "*://web.whatsapp.com/*",
+    "*://web.telegram.org/*",
+    "*://webk.telegram.org/*",
+    "*://webz.telegram.org/*",
+    "*://www.messenger.com/*",
+    "*://messenger.com/*",
+    "http://localhost:8765/*"
+  ],
+
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://web.whatsapp.com/*"],
+      "js": ["content-scripts/whatsapp-enhanced.js"],
+      "css": ["content-scripts/whatsapp.css"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://web.telegram.org/*",
+        "*://webk.telegram.org/*",
+        "*://webz.telegram.org/*"
+      ],
+      "js": ["content-scripts/telegram.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
+        "*://www.messenger.com/*",
+        "*://messenger.com/*"
+      ],
+      "js": ["content-scripts/messenger.js"],
+      "run_at": "document_idle"
+    }
+  ],
+
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+
+  "icons": {
+    "16": "icons/icon-16.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  },
+
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "icons/*",
+        "content-scripts/*.css"
+      ],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}
