@@ -1,124 +1,136 @@
-# LooseCannon 🤖
+# LooseCannon
 
-Automated scambaiting assistant that integrates with messaging platforms to waste scammers' time using local LLMs.
+Automated scambaiting for the terminally online. Weaponizes local LLMs against the forces of digital darkness.
 
-## ⚠️ Legal Disclaimer
+## Legal Notice
 
-This tool is for educational and defensive security purposes only. Use responsibly and be aware that automation may violate platform Terms of Service. Your account could be banned.
+This tool exists for educational purposes and defensive security research. Using it will probably violate some Terms of Service. Your accounts may get banned. You've been warned.
 
-## Features
+## What It Does
 
-- 🦊 Firefox browser extension
-- 💬 WhatsApp Web integration (more platforms coming)
-- 🤖 Local LLM support via Ollama
-- 🎭 Multiple scambaiter personalities
-- 🛑 Emergency stop functionality
-- 📊 Conversation logging
+Turns your messaging apps into honeypots for scammers. When they message, an AI responds with maximum confusion and minimal coherence. Think of it as a Turing test in reverse.
 
-## Project Structure
+## Current Victims
+
+- WhatsApp Web (primary target)
+- Telegram Web (all variants)
+- Facebook Messenger (surprisingly easy)
+
+## Architecture
 
 ```
 LooseCannon/
-├── extension/          # Firefox browser extension
-│   ├── manifest.json
-│   ├── content-scripts/
-│   ├── background/
-│   └── popup/
-├── server/            # Local server for LLM integration
-│   ├── src/
-│   └── personalities/
-└── package.json
+├── extension/          # Browser hijacking code
+├── server/            # LLM wrangling service
+└── personalities/     # Digital personas of varying coherence
 ```
 
-## Quick Start
+## Prerequisites
 
-### Prerequisites
+- Ollama (for the AI brain)
+- Node.js 18+ (for the plumbing)
+- Firefox (Chrome users can wait)
+- A healthy disregard for platform guidelines
 
-1. **Ollama** - Install from https://ollama.ai
-2. **Node.js** - Version 18+ recommended
-3. **Firefox Developer Edition** (recommended for extension development)
+## Installation
 
-### Installation
-
-1. Clone the repository:
 ```bash
+# Get the code
 cd ~/Documents/GithubOrgs/zeroed-some/LooseCannon
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Start Ollama with a model:
-```bash
+# Start the AI
 ollama pull llama2
 ollama serve
-```
 
-4. Start the local server:
-```bash
-npm run dev:server
-```
+# Run the server
+npm start
 
-5. Load the extension in Firefox:
-```bash
+# Load extension
 npm run dev:extension
 ```
 
-Or manually:
-- Open Firefox and navigate to `about:debugging`
-- Click "This Firefox"
-- Click "Load Temporary Add-on"
-- Select `extension/manifest.json`
+Or if you prefer the manual approach: `about:debugging` > Load Temporary Add-on > Select manifest.json
 
-## Usage
+## Operation
 
-1. Navigate to WhatsApp Web (https://web.whatsapp.com)
-2. Click the LooseCannon button in the bottom right
-3. Select a personality from the popup
-4. Toggle "LC: ON" to activate
-5. The bot will automatically respond to incoming messages in the current chat
+1. Open your chosen messaging platform
+2. Find the LC button (you can't miss it)
+3. Pick a personality (Confused Elder is a classic)
+4. Toggle to ON
+5. Watch the magic unfold
 
-## Development Roadmap
+## Available Personalities
 
-### Phase 1: Foundation ✅
-- Firefox extension skeleton
-- Basic WhatsApp Web integration
+- **Confused Elder**: Can't find the any key
+- **Tech Support Nightmare**: Knows everything, understands nothing
+- **Conspiracy Theorist**: It's all connected, man
 
-### Phase 2: Message Interception (Current)
-- DOM manipulation for reading messages
-- Message injection system
+## Safety Mechanisms
 
-### Phase 3: LLM Integration
-- Ollama server connection
-- Response generation
+- Manual activation only (no rogue AI here)
+- Big red emergency stop button
+- Conversation logs (for posterity)
+- Rate limiting (to maintain plausible humanity)
 
-### Phase 4: Scambaiter Logic
-- Personality system
-- Conversation strategies
+## Phases of Development
 
-### Phase 5: Polish
-- Chrome support
-- Additional platforms
-- Advanced features
+**Phase 1**: Basic infrastructure [COMPLETE]
+**Phase 2**: Multi-platform chaos [COMPLETE]
+**Phase 3**: Chrome support (eventually)
+**Phase 4**: World domination (pending)
 
-## Safety Features
+## Technical Highlights
 
-- Manual activation per chat (no automatic activation)
-- Visual indicators when active
-- Emergency stop button
-- Conversation logging for review
-- Rate limiting to avoid detection
+- Real-time scammer detection (70%+ confidence triggers alerts)
+- Human-like typing delays (150ms per word, plus random jitter)
+- Context-aware response strategies
+- Conversation state management
+- Platform-agnostic message handling
+
+## Performance Notes
+
+- Conversations auto-purge after 24 hours
+- Message history capped at 50 (memory is expensive)
+- Response queue prevents flooding
+- Automatic reconnection on server hiccups
+
+## Testing Your Setup
+
+```javascript
+// Browser console commands for the curious
+
+// Check load status
+console.log(window.LooseCannonLoaded);
+
+// Trigger scammer alert
+browser.runtime.sendMessage({
+  type: 'SCAMMER_DETECTED',
+  data: { score: 0.95 }
+});
+```
+
+## Known Issues
+
+- Platform DOM changes will break everything
+- Too many responses = rate limiting
+- Some assembly required
+- Batteries not included
+
+## Disclaimer
+
+This software is provided "as is" without warranty of any kind. If you lose your WhatsApp account while trolling Nigerian princes, that's on you. The authors assume no responsibility for banned accounts, angry scammers, or existential crises caused by talking to AI-powered grandparents.
 
 ## Contributing
 
-This project is in active development. Issues and PRs welcome!
+PRs welcome. Breaking changes preferred. Documentation optional.
 
 ## License
 
-MIT - See LICENSE file for details
+MIT - Do whatever you want, just don't blame us.
 
-## Acknowledgments
+## Credits
 
-Inspired by the scambaiting community and projects like Kitboga's work.
+Standing on the shoulders of giants in the scambaiting community. You know who you are.
