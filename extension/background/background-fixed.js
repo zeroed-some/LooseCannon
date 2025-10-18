@@ -1,4 +1,4 @@
-// Background script for LooseCannon
+// Background script for LooseCannon - Fixed Connection Issues
 console.log('[LooseCannon Background] Initialized');
 
 class LooseCannonBackground {
@@ -112,27 +112,28 @@ class LooseCannonBackground {
 
   async checkServerConnection() {
     try {
-      console.log('[LooseCannon] Checking server connection to:', this.serverUrl);
+      console.log('[LooseCannon] Checking server connection...');
       const response = await fetch(`${this.serverUrl}/status`);
 
       if (response.ok) {
         const data = await response.json();
         this.isConnected = true;
         this.personalities = data.personalities || [];
-        console.log('[LooseCannon] ✅ Server connected successfully');
+        console.log('[LooseCannon] Server connected successfully');
         console.log('[LooseCannon] Available personalities:', this.personalities);
+        return true;
       } else {
         this.isConnected = false;
-        console.warn('[LooseCannon] ❌ Server responded with error:', response.status);
+        console.warn('[LooseCannon] Server responded with error:', response.status);
+        return false;
       }
     } catch (error) {
       this.isConnected = false;
-      console.error('[LooseCannon] ❌ Could not connect to server:', error.message);
-    }
+      console.error('[LooseCannon] Could not connect to server:', error.message);
 
-    // Retry connection every 5 seconds if not connected
-    if (!this.isConnected) {
+      // Retry in 5 seconds
       setTimeout(() => this.checkServerConnection(), 5000);
+      return false;
     }
   }
 
