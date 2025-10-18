@@ -1,6 +1,6 @@
 {
   "name": "loosecannon",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Automated scambaiting assistant for messaging platforms",
   "main": "server/src/index-enhanced.js",
   "scripts": {
@@ -9,7 +9,10 @@
     "dev": "npm run dev:server & npm run dev:extension",
     "dev:server": "nodemon server/src/index-enhanced.js",
     "dev:extension": "web-ext run --source-dir ./extension --firefox-profile=loosecannon",
+    "dev:chrome": "echo 'Load extension-chrome/ as unpacked extension in Chrome'",
+    "dashboard": "open dashboard/index.html",
     "build": "web-ext build --source-dir ./extension",
+    "build:chrome": "cd extension-chrome && zip -r ../loosecannon-chrome.zip *",
     "lint": "web-ext lint --source-dir ./extension"
   },
   "keywords": [
